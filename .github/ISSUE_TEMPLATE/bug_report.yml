@@ -1,0 +1,22 @@
+name: Bug report / 问题反馈
+description: 播放、设备、同步或界面问题
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: 使用环境
+      description: Windows 版本、两台音箱型号、蓝牙适配器/驱动、播放器及版本、DualSpeaker 版本。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤、预期与实际结果
+      description: 同步问题请区分左右不同步与音画延迟；附上当前播放模式。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 截图、错误或已脱敏日志
+      description: 不要提交设备标识、个人路径、settings.json、恢复记录或麦克风录音。

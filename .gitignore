@@ -1,0 +1,32 @@
+# Local build products and verified dependency cache
+.deps/
+dist/
+artifacts/
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Device identifiers, recovery state, local diagnostics and microphone recordings
+settings.json
+restore-audio.json
+live-status.json
+application.log
+acceptance-report.json
+*-test.json
+diagnostics/
+*.wav
+*.dmp
+
+# Credentials are never project files
+.env
+.env.*
+*.pfx
+*.key
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

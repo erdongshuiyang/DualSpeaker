@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build portable application
+        run: .\build.ps1
+      - name: Calibration algorithm self-test (no audio hardware)
+        run: |
+          & .\dist\DualSpeaker\DualSpeaker.Cli.exe --selftest
+          if ($LASTEXITCODE -ne 0) { throw 'Calibration self-test failed.' }
+      - name: Volume and media key self-test (no audio hardware)
+        run: |
+          & .\dist\DualSpeaker\DualSpeaker.Cli.exe --volume-selftest
+          if ($LASTEXITCODE -ne 0) { throw 'Volume self-test failed.' }
+      - name: Package without runtime data
+        run: .\scripts\package-release.ps1 -Version 0.1.0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DualSpeaker-win-x64
+          path: |
+            artifacts/*.zip
+            artifacts/*.sha256
+          if-no-files-found: error
